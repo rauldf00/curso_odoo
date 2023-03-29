@@ -8,3 +8,5 @@ Revisar también si el nombre y apellidos son correctos. quizas
 | -- | -- | -- | -- | -- | -- |
 | Angel | Moya | AngelMoya | angelmoya | SI | SI |
 | alvaro | gamez | x | alvarogamez  | SI | SI | 
+| Raul | Donaire | rauldf00 | rauldf00 | SI | SI |  
+
