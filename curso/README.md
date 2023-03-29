@@ -8,5 +8,10 @@ Revisar también si el nombre y apellidos son correctos. sapos y culebras.
 | -- | -- | -- | -- | -- | -- |
 | Angel | Moya | AngelMoya | angelmoya | SI | SI |
 | alvaro | gamez | x | alvarogamez  | SI | SI | 
+<<<<<<< HEAD
 | Raul | Donaire | rauldf00 | rauldf00 | SI | SI |  
 
+=======
+| -- | -- | -- | -- | -- | -- |
+| Raul | Donaire | rauldf00 | rauldf00 | SI | SI | 
+>>>>>>> cf1ad54 (Commit final)
