@@ -1,0 +1,96 @@
+adaptador puente
+
+debian 11
+
+su - #(contra dada)
+
+apt-get update
+apt install openssh-server
+apt install net-tools
+
+#cd additions
+mkdir /mnt/additions
+mount /dev/cdrom /mnt/additions
+cd mnt/additions/
+./VBoxLinuxAdditions.run
+reboot now
+
+#crear usuario y darle poder para usar sudo
+adduser admin
+apt install sudo
+usermod -a -G sudo admin
+
+sudo apt-get install postgresql postgresql-client
+
+#crear usuario odoo (contra odoo)
+sudo su postgres
+cd
+createuser --superuser --pwprompt odoo
+exit
+
+sudo apt-get install git
+su - odoo #(pasar a usuario odoo, crearlo como admin)
+cd
+git clone https://github.com/Odoo/odoo.git --depth 1 --branch 14.0 --single-branch odoo
+exit
+
+sudo apt-get install wget python3 python3-pip libxml2-dev libxslt-dev libevent-dev libsasl2-dev libldap2-dev libjpeg-dev zlib1g-dev libpq-dev
+sudo pip3 install -r /home/odoo/odoo/requirements.txt
+sudo apt install libxrender1 libfontconfig1 libx11-dev libjpeg62 libxtst6 fontconfig xfonts-75dpi xfonts-base
+wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb
+sudo dpkg -i wkhtmltox_0.12.5-1.buster_amd64.deb
+
+#configuracion
+nano odoo-server.conf
+ 
+[options]
+; This is the password that allows database operations:
+; admin_passwd = admin
+db_host = False
+db_port = False
+db_user = odoo
+db_password = odoo
+;addons_path = /usr/lib/python3/dist-packages/odoo/addons
+
+# su odoo - (si se esta en root)
+/home/odoo/odoo/odoo-bin -c /home/odoo/odoo-server.conf
+
+VScode extension (remote explorer) para conectar con la VM encendida -> ssh {user_vm}@{ip_VM}
+odooweb {ip_VM:puerto_odoo}
+
+#creando directorio OCA, pa implementar su path_addons
+mkdir OCA
+cd OCA
+git clone https://github.com/OCA/web.git -b 14.0
+
+
+#modificar odoo-server.conf
+nano odoo-server.conf
+addons_path = /home/odoo/OCA/web,(lo que tenga) 
+
+#inicializar como servicio (es mejor ya que se pueden hacer otras cosas)
+sudo nano /etc/systemd/system/odoo.service
+
+[Unit]
+Description=Odoo Open Source ERP and CRM
+After=network.target
+[Service]
+Type=simple
+User=odoo
+Group=odoo
+ExecStart=/home/odoo/odoo/odoo-bin --config /home/odoo/odoo.conf
+KillMode=mixed
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl enable odoo.service #Activamos el servicio: 
+sudo systemctl start odoo #arrancar el servicio con:
+sudo systemctl stop odoo #parar el servicio con: 
+sudo systemctl status odoo #consultar el estado del servicio con:
+
+#min 2.20.00 video 3 para ver el log
+
+#borrar directorios:
+rm -rf {dirName}
+
+

@@ -1,0 +1,69 @@
+#Clonar un directorio de git
+git clone [url]
+
+#comprobar el status de git
+git status
+
+#Comprobar a que repositorio estamos conectados
+git remote -v
+#Se le pueden añadir tantos remotos como queramos con
+git remote add [alias] [url]
+
+#Para crear una rama y cambiarse a esta (RECOMENDABLE CREAR UNA RAMA POR CADA MODIFICACION/ES)
+git checkout -b [nombreRama]
+#Para cambiarse a la rama
+git checkout [nombreRama]
+#Para comprobar las ramas que tenemos
+git branch [-r]
+
+#Para volver los objetos modificados como preparados:
+git add [nombreFichero]    o      git add .     (para modificarlos todos)
+
+#Para hacer un commit válido en NUESTRA TERMINAL:
+git commit -m "[Mensaje]"  (Es necesario el git add antes)
+git commit -am "[Mensaje]" (No es necesario el git add, ya que lo hace antes de hacer el commit)
+
+
+#Para subir los cambios hechos a github (es recomendable ir subiendo los cambios a la rama hecha,
+ para tenerlos en tu rama, y luego si quieres puedes hacer el pull request)
+git push [aliasRepositorio/fork] [rama]
+Ej: git push origin main   (Para añadirlo al repositorio clonado en este caso, en la rama main)
+
+
+
+#Hacer un PULL (Poner al dia nuestro repositorio con el repositorio del que lo sacamos)
+git pull -r [aliasRepositorio/fork] [rama]
+>git push -f origin main
+Ej: git pull -r aeodoo main
+
+#Hacer PULL REQUEST
+tendremos que hacer un git push a nuestro fork, y despues hacerle un pull request desde el propio github
+
+
+#Si hay varias personas trabajando, puede que den problemas (De superposicion), para comprobarlo tenemos que hacer un git pull -r 
+ del repositorio del que sacamos todo, si sale algo tendremos que modificar 
+!!Tendremos que modificar el readme, dejar todo lo que queramos y hacerle un add y un rebase
+Ej: git add README.md
+    git rebase --continue (Creo que hace un commit directamente)
+    git push -f origin main (si quieres subirlo al github, habria que forzarlo)
+
+
+
+#Si queremos ver todos los commits realizados
+git log
+
+#Si tenemos varios commits y queremos hacer que sea solo 1
+git reset --soft HEAD~[nºCommitsABorrar]    (Importante el soft, ya que si no lo ponemos, destruye los cambios en el codigo)
+(git add .) No creo que sea necesario
+git commit -am "[Mensaje]"
+git push -f [Fork] [Rama]
+
+
+#Al crear un nuevo repositorio:
+-Se crea desde github
+-Hacemos un git clone con el link proporcionad
+-Es necesario crear una rama para hacer el git push, por lo que creamos el main
+ git branch -M main
+-Hacemos commit y ya podemos hacer el push
+ git push origin main
+(Cabe destacar que cada "carpeta" estará enlazada con el repositorio del que hemos hecho clone)

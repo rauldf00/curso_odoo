@@ -1,0 +1,14 @@
+supersuser: contra:1405
+user: ryuu contra:alvaro
+user postgres: odoo contra:odoo
+user debian: odoo contra:odoo
+ip:172.30.0.208
+odoo port:8069
+
+#odoo web
+supercontra: etxh-jz46-zjzu
+email: admin contra:admin db:test
+
+#postgres
+supersuser contra: postgres
+port:5432
